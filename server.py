@@ -3,7 +3,7 @@ Flask server for vegetable classification
 Render & Gunicorn ready
 """
 
-from flask import Flask, request, jsonify
+from flask import Flask, request, jsonify, render_template
 from flask_cors import CORS
 import numpy as np
 from PIL import Image
@@ -52,10 +52,8 @@ load_model()
 # --------------------------------------------------
 @app.route("/", methods=["GET"])
 def index():
-    return jsonify({
-        "status": "running",
-        "service": "Vegetable Classifier API"
-    })
+    # Serve index.html
+    return render_template("index.html")
 
 
 @app.route("/health", methods=["GET"])
