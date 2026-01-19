@@ -6,7 +6,7 @@
 
 body {
     font-family: 'Inter', 'Segoe UI', -apple-system, BlinkMacSystemFont, sans-serif;
-    background-image: url('background_dark.jpg');
+    background-image: url('../assets/background_dark.jpg');
     background-size: cover;
     background-repeat: no-repeat;
     background-attachment: fixed;
@@ -19,7 +19,7 @@ body {
 }
 
 body.light-mode {
-    background-image: url('background_light.jpg');
+    background-image: url('../assets/background_light.jpg');
     color: #1a1a1a;
 }
 
