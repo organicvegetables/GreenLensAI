@@ -760,3 +760,4 @@ document.addEventListener('DOMContentLoaded', function() {
 function closeDownloadModal() {
     document.getElementById('downloadModal').style.display = 'none';
 }
+
