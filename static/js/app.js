@@ -472,12 +472,12 @@ function applyTheme() {
     if (isDarkMode) {
         root.style.colorScheme = 'dark';
         body.classList.remove('light-mode');
-        if (logoImg) logoImg.src = 'logo_dark.png';
+        if (logoImg) logoImg.src = '../assets/logo_dark.png';
         document.getElementById('themeToggleBtn').innerHTML = '<i class="fas fa-moon"></i>';
     } else {
         root.style.colorScheme = 'light';
         body.classList.add('light-mode');
-        if (logoImg) logoImg.src = 'logo.png';
+        if (logoImg) logoImg.src = '../assets/logo.png';
         document.getElementById('themeToggleBtn').innerHTML = '<i class="fas fa-sun"></i>';
     }
 }
@@ -760,4 +760,3 @@ document.addEventListener('DOMContentLoaded', function() {
 function closeDownloadModal() {
     document.getElementById('downloadModal').style.display = 'none';
 }
-
