@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Organic & Inorganic Vegetables Detector</title>
+    <link rel="icon" type="image/png" href="favicon.pngS">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <div class="container">
+        <div class="utility-bar">
+            <button class="utility-icon-btn" id="settingsBtn" data-tooltip="Settings" title="Settings">
+                <i class="fas fa-cog"></i>
+            </button>
+            <button class="utility-icon-btn" id="themeToggleBtn" data-tooltip="Dark/Light" title="Toggle theme">
+                <i class="fas fa-moon"></i>
+            </button>
+            <button class="utility-icon-btn" id="aboutBtn" data-tooltip="About Model" title="About model">
+                <i class="fas fa-info-circle"></i>
+            </button>
+        </div>
+
+        <header>
+            <h1><img src="logo.png" alt="GreenLens AI Logo" class="logo-img">GreenLens AI</h1>
+            <p>Smart Agriculture - Intelligent Vegetable Analysis</p>
+        </header>
+
+        <div class="main-content">
+            <div class="controls-section">
+                <div class="control-group">
+                    <label for="cameraSelect">Select Camera:</label>
+                    <select id="cameraSelect">
+                        <option value="">Loading cameras...</option>
+                    </select>
+                </div>
+
+                <div class="button-group">
+                    <button id="startBtn" class="btn btn-primary"><i class="fas fa-play"></i> Start Camera</button>
+                    <button id="captureBtn" class="btn btn-success" disabled><i class="fas fa-camera"></i> Capture & Detect</button>
+                    <button id="stopBtn" class="btn btn-tertiary" disabled><i class="fas fa-stop"></i> Stop Camera</button>
+                    
+                    <div style="border-top: 1px solid rgba(255, 255, 255, 0.2); margin: 15px 0;"></div>
+                    
+                    <label for="imageUpload" class="btn btn-secondary" style="cursor: pointer; margin: 0;"><i class="fas fa-upload"></i> Upload Image</label>
+                    <input type="file" id="imageUpload" accept="image/*" style="display: none;">
+                </div>
+
+                <div class="info-box">
+                    <p><strong><i class="fas fa-cogs"></i> Model Status:</strong> <span id="modelStatus">Loading...</span></p>
+                    <p><strong><i class="fas fa-list"></i> Available Vegetables:</strong> Cabbage, Lettuce</p>
+                </div>
+            </div>
+
+            <div class="video-section">
+                <div class="video-container">
+                    <video id="videoElement" autoplay playsinline></video>
+                </div>
+                <canvas id="captureCanvas" style="display: none;"></canvas>
+            </div>
+
+            <div class="results-section">
+                <h2>Detection Results</h2>
+                <div id="resultsContainer" class="results-placeholder">
+                    <p>Results will appear here after detection</p>
+                </div>
+            </div>
+        </div>
+
+        <div class="loading-spinner" id="loadingSpinner" style="display: none;">
+            <div class="spinner"></div>
+            <p>Analyzing image...</p>
+        </div>
+    </div>
+
+    <!-- TensorFlow.js and model loading scripts -->
+    <script src="https://cdn.jsdelivr.net/npm/@tensorflow/tfjs@4.0.0"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@tensorflow/tfjs-vis@1.10.0"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@tensorflow/tfjs-backend-webgl@4.0.0"></script>
+    <script src="https://cdn.jsdelivr.net/npm/h5wasm@0.2.12/dist/hdf5_hl.js"></script>
+    <script src="app.js"></script>
+</body>
+</html>

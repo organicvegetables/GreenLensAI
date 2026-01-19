@@ -1,0 +1,70 @@
+RUNNING THE APP
+
+Terminal 1: python server.py
+Terminal 2: python -m http.server 8000 (if not already running)
+Open browser to http://localhost:8000 and refresh
+
+
+POWERSHELL:
+Opening the localhost link at port 8000: 
+cd "c:\Users\keanc\Desktop\Organic and Inorganic Vegetables App" ; python -m http.server 8000
+
+POWERSHELL:
+Opening the python server link at port 5000:
+cd "c:\Users\keanc\Desktop\Organic and Inorganic Vegetables App" ; python server.py
+
+BROWSER:
+Localhost link:
+http://localhost:8000
+
+
+
+SYSTEM ALGORITHM OVERVIEW
+
+1. Core Architecture: Convolutional Neural Network (CNN)
+Framework: TensorFlow/Keras
+Model Format: H5 (HDF5) format trained model
+Input: 224×224 RGB images
+Output: Binary classification (Organic vs. Inorganic)
+
+2. Model Pipeline:
+Frontend (app.js):
+
+Uses TensorFlow.js with WebGL backend (CPU fallback)
+Captures images from camera or file upload
+Sends base64-encoded images to server
+Backend (server.py - Flask):
+
+Receives base64 image data
+Preprocesses image:
+Resizes to 224×224 pixels
+Normalizes pixel values (0-1 scale)
+Handles different image formats (Grayscale → RGB, RGBA → RGB)
+Runs inference on the trained Keras model
+Returns two confidence scores:
+Organic Score (0-100%)
+Inorganic Score (0-100%)
+
+3. Classification Logic:
+The system classifies vegetables as either:
+
+Organic - naturally grown without synthetic pesticides/fertilizers
+Inorganic - conventional farming with chemical inputs
+Confidence levels determine detail level:
+
+≥90%: Excellent/strong indicators
+75-89%: Good/significant indicators
+60-74%: Moderate indicators
+<60%: Weak/uncertain signals
+4. Detection Features:
+
+Detects 2 vegetables: Cabbage and Lettuce
+Real-time camera stream processing
+Image upload capability
+Generates detailed comments based on confidence scores
+
+5. Deployment Architecture:
+Model Conversion: convert_model.py converts H5 to TensorFlow SavedModel → TensorFlow.js compatible format
+Server: Flask running inference backend
+Client: HTML5/JavaScript web interface with camera API
+The system is essentially a binary image classifier using deep learning to distinguish organic from inorganic produce based on visual characteristics.

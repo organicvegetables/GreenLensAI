@@ -1,0 +1,7 @@
+.venv/
+.vscode/
+__pycache__/
+dataset_*/
+model.h5
+node_modules/
+.env

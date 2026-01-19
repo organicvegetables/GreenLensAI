@@ -1,0 +1,13 @@
+<svg viewBox="0 0 400 400" xmlns="http://www.w3.org/2000/svg">
+  <!-- Leaf shape -->
+  <path d="M 280 70 Q 340 100 340 180 Q 340 240 260 280 Q 300 150 200 120 Q 240 140 280 70" fill="#4caf50"/>
+  
+  <!-- Curved leaf accent -->
+  <path d="M 220 150 Q 240 140 260 160 Q 240 180 220 170" fill="white" opacity="0.9"/>
+  
+  <!-- Outer circle -->
+  <circle cx="200" cy="260" r="110" fill="none" stroke="#4caf50" stroke-width="30"/>
+  
+  <!-- Inner circle -->
+  <circle cx="200" cy="260" r="45" fill="#4caf50"/>
+</svg>

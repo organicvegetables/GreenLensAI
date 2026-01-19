@@ -1,0 +1,123 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Model Loading Test</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 40px;
+            background: #f0f0f0;
+        }
+        .container {
+            max-width: 800px;
+            margin: 0 auto;
+            background: white;
+            padding: 30px;
+            border-radius: 8px;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+        }
+        h1 { color: #333; }
+        .status {
+            padding: 15px;
+            margin: 10px 0;
+            border-radius: 4px;
+            font-weight: bold;
+        }
+        .success { background: #d4edda; color: #155724; }
+        .error { background: #f8d7da; color: #721c24; }
+        .info { background: #d1ecf1; color: #0c5460; }
+        .loading { background: #fff3cd; color: #856404; }
+        pre {
+            background: #f4f4f4;
+            padding: 15px;
+            border-radius: 4px;
+            overflow-x: auto;
+        }
+        button {
+            background: #007bff;
+            color: white;
+            border: none;
+            padding: 10px 20px;
+            border-radius: 4px;
+            cursor: pointer;
+            font-size: 1em;
+        }
+        button:hover { background: #0056b3; }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>🔍 Model Loading Test</h1>
+        
+        <button onclick="testModelLoading()">Test Model Loading</button>
+        
+        <div id="output"></div>
+    </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/@tensorflow/tfjs@4.0.0"></script>
+    
+    <script>
+        const output = document.getElementById('output');
+        
+        function log(message, type = 'info') {
+            console.log(message);
+            const div = document.createElement('div');
+            div.className = `status ${type}`;
+            div.textContent = message;
+            output.appendChild(div);
+        }
+        
+        async function testModelLoading() {
+            try {
+                log('🔄 Starting model loading test...', 'loading');
+                
+                // Check if tfjs_model exists
+                log('📂 Checking if tfjs_model/model.json exists...', 'info');
+                const response = await fetch('tfjs_model/model.json');
+                if (!response.ok) {
+                    throw new Error(`HTTP ${response.status}: Could not fetch model.json`);
+                }
+                log('✅ model.json found', 'success');
+                
+                // Check if weights exist
+                log('📂 Checking if tfjs_model/group1-shard1of1.bin exists...', 'info');
+                const binResponse = await fetch('tfjs_model/group1-shard1of1.bin');
+                if (!binResponse.ok) {
+                    throw new Error(`HTTP ${binResponse.status}: Could not fetch weights`);
+                }
+                log('✅ model weights found', 'success');
+                
+                // Load the model
+                log('⏳ Loading model into TensorFlow.js...', 'loading');
+                const model = await tf.loadLayersModel('tfjs_model/model.json');
+                log('✅ Model loaded successfully!', 'success');
+                
+                // Show model info
+                log('Model Info:', 'info');
+                const info = `
+Input shape: ${JSON.stringify(model.inputShape)}
+Output shape: ${JSON.stringify(model.outputShape)}
+Number of parameters: ${model.countParams()}
+                `;
+                const infoDiv = document.createElement('div');
+                infoDiv.className = 'status info';
+                infoDiv.innerHTML = '<pre>' + info + '</pre>';
+                output.appendChild(infoDiv);
+                
+                log('🎉 Everything works! The main app should load fine.', 'success');
+                
+            } catch (error) {
+                log('❌ Error: ' + error.message, 'error');
+                console.error(error);
+            }
+        }
+        
+        // Auto-test on page load
+        window.addEventListener('load', () => {
+            log('Page loaded. Click "Test Model Loading" button above.', 'info');
+        });
+    </script>
+</body>
+</html>
